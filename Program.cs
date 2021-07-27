@@ -35,8 +35,10 @@ app.MapGet("/api", async (
         return;
     }
 
-    var (_, sidebar) = await unsplash.TryGetSidebarImage(search);
-    var image = await Images.Render(product, text, sidebar);
+    var (_, sb) = await unsplash.TryGetSidebarImage(search);
+
+    using var sidebar = sb;
+    using var image = await Images.Render(product, text, sidebar);
 
     ctx.Response.ContentType = "image/jpeg";
     await image.SaveAsync(ctx.Response.Body, new JpegEncoder());

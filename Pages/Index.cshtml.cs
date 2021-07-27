@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -10,7 +11,7 @@ using SixLabors.ImageSharp;
 
 namespace JetBrains.FeaturedImageGenerator.Pages
 {
-    public class Index : PageModel
+    public class Index : PageModel, IDisposable
     {
         [BindProperty]
         public string Product { get; set; }
@@ -28,10 +29,15 @@ namespace JetBrains.FeaturedImageGenerator.Pages
 
         public async Task<IActionResult> OnPost([FromServices]HttpClient unsplash)
         {
-            var (_, sidebar) = await unsplash.TryGetSidebarImage(Search);
+            var (_, sb) = await unsplash.TryGetSidebarImage(Search);
+            using var sidebar = sb;
             Image = await Images.Render(Product, Text, sidebar);
-
             return Partial("_Image", this);
+        }
+
+        public void Dispose()
+        {
+            Image?.Dispose();
         }
     }
 }
