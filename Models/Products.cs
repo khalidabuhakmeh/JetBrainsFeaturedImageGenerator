@@ -8,12 +8,13 @@ namespace JetBrains.FeaturedImageGenerator.Models
     {
         public static readonly List<string> All = new()
         {
-            CodeWithMe, CLion, DotMemory, GoLand,
+            BigDataTools, CodeWithMe, CLion, DotMemory, GoLand,
             IntelliJ, Kotlin, PyCharm, ReSharper,
             ResharperCPlusPlus, Rider, RubyMine,
             TeamCity, WebStorm
         };
 
+        public const string BigDataTools = "Big Data Tools";
         public const string CodeWithMe = nameof(CodeWithMe);
         public const string CLion = nameof(CLion);
         public const string DotMemory = nameof(DotMemory);
