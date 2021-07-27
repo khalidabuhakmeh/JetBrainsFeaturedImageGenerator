@@ -28,7 +28,7 @@ namespace JetBrains.FeaturedImageGenerator.Models
 
         public static async Task<Image> GetSidebarImage(this HttpClient httpClient, string query)
         {
-            var stream = await httpClient.GetStreamAsync($"https://source.unsplash.com/random/1600x900?{query}");
+            var stream = await httpClient.GetStreamAsync($"https://source.unsplash.com/random/1280x720?{query}");
             var sidebar = await Image.LoadAsync(stream);
 
             return sidebar;
@@ -80,7 +80,7 @@ namespace JetBrains.FeaturedImageGenerator.Models
                     Color.White,
                     new PointF(100, 250)
                 )
-                .Resize(1920, 1080)
+                .Resize(1280, 720)
             );
 
             return image;
