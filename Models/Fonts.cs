@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Resources;
 using SixLabors.Fonts;
 
-namespace JetbrainsFeaturedImageGenerator.Models
+namespace JetBrainsFeaturedImageGenerator.Models
 {
     public static class Fonts
     {

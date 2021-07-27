@@ -1,0 +1,128 @@
+@page
+@model JetBrains.FeaturedImageGenerator.Pages.Index
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JetBrains Featured Image Generator</title>
+    <link rel="stylesheet" href="~/css/fontawesome/all.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <!-- Bulma Version 0.9.0-->
+    <link rel="stylesheet" href="~/css/bulma.min.css"/>
+    <style>
+        html,
+        body {
+            font-family: 'Open Sans';
+        }
+        .image {
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+        .logo {
+            margin-right: 1em;
+        }
+    </style>
+</head>
+
+<body>
+<section class="hero is-default is-bold">
+    <div class="hero-head">
+        <nav class="navbar">
+            <div class="container">
+                <div class="navbar-brand">
+                    <a class="navbar-item" asp-page="Index">
+                        <img class="logo" src="~/img/logo.png" alt="Logo">
+                        <strong>JetBrains</strong>
+                    </a>
+                    <span class="navbar-burger burger" data-target="navbarMenu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </div>
+                <div id="navbarMenu" class="navbar-menu">
+                    <div class="navbar-end">
+                        <div class="tabs is-right">
+                            <ul>
+                                <li class="is-active">
+                                    <a asp-page="Index">Home</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="hero-body">
+        <div class="container">
+            <div class="block">
+                <h1 class="title is-1">Featured Image Generator</h1>
+                <p>Generate feature cards for JetBrains Blog Posts. Use the <strong>Image Search</strong> to search <a href="https://unsplash.com">Unsplash</a> to find optional side bar images. </p>
+            </div>
+            <div class="columns is-vcentered">
+                <div class="column is-8">
+                    <figure id="featureCard" class="image is-16by9">
+                        <img src="~/img/start.jpg" alt="Random">
+                    </figure>
+                </div>
+                <div class="column is-3 is-offset-1">
+                    <form hx-post="@Url.Page("Index")" hx-target="#featureCard" hx-swap="outerHTML" hx-indicator=".htmx-indicator">
+                        <div class="field">
+                            <label class="label">Product *</label>
+                            <div class="select is-medium">
+                                <select asp-for="Product" asp-items="Model.Products">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Text *</label>
+                            <div class="control">
+                                <textarea class="textarea" rows="5" asp-for="Text" required></textarea>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Image Search</label>
+                            <div class="control">
+                                <input class="input is-medium" type="text" asp-for="Search" autocomplete="off"/>
+                            </div>
+                        </div>
+                        <button class="button is-success" type="submit">
+                            <span class="icon is-small">
+                                <i class="fas fa-recycle"></i>
+                            </span>
+                            <span>Generate</span>
+                        </button>
+                        <span class="htmx-indicator">
+                            <i class="fa fa-spinner fa-spin fa-2x"></i>
+                            <span class="sr-only">Generating...</span>
+                        </span>
+                        @Html.AntiForgeryToken()
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-foot">
+        <div class="container">
+            <div class="tabs is-centered">
+                <ul>
+                    <li>
+                        <a>&copy; JetBrains @DateTime.Now.Year</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="js/htmx.min.js" type="text/javascript"></script>
+</body>
+</html>

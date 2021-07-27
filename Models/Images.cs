@@ -3,13 +3,14 @@ using System.Net.Http;
 using System.Reflection;
 using System.Resources;
 using System.Threading.Tasks;
+using JetBrainsFeaturedImageGenerator.Models;
 using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Processing;
 using Color = SixLabors.ImageSharp.Color;
 
-namespace JetbrainsFeaturedImageGenerator.Models
+namespace JetBrains.FeaturedImageGenerator.Models
 {
     public static class Images
     {

@@ -1,7 +1,17 @@
-namespace JetbrainsFeaturedImageGenerator.Models
+using System.Collections.Generic;
+
+namespace JetBrainsFeaturedImageGenerator.Models
 {
     public static class Products
     {
+        public static readonly List<string> All = new()
+        {
+            CodeWithMe, CLion, DotMemory, GoLand,
+            IntelliJ, Kotlin, PyCharm, ReSharper,
+            ResharperCPlusPlus, Rider, RubyMine,
+            TeamCity, WebStorm
+        };
+
         public const string CodeWithMe = nameof(CodeWithMe);
         public const string CLion = nameof(CLion);
         public const string DotMemory = nameof(DotMemory);

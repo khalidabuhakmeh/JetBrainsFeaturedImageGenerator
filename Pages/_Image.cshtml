@@ -1,0 +1,20 @@
+@using SixLabors.ImageSharp
+@using SixLabors.ImageSharp.Formats.Jpeg
+@model JetBrains.FeaturedImageGenerator.Pages.Index
+
+<figure id="featureCard">
+    <div class="image block">
+    <a id="featureCardDownload" download="@(Model.Product)_feature_card.jpg" href="@Model.Image.ToBase64String(JpegFormat.Instance)">
+        <img src="@Model.Image.ToBase64String(JpegFormat.Instance)"
+             alt="@Model.Product with @Model.Search" download>
+    </a>
+    </div>
+    <div class="block columns is-centered">
+        <button class="button is-success is-medium" onclick="document.getElementById('featureCardDownload').click()">
+            <span class="icon">
+                <i class="fas fa-download"></i>
+            </span>
+            <span>Save</span>
+        </button>
+    </div>
+</figure>

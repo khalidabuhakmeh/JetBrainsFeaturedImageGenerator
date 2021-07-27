@@ -3,8 +3,9 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <LangVersion>preview</LangVersion>
-      <UserSecretsId>87b9ba94-26bb-497a-8b63-56194da79c49</UserSecretsId>
-  </PropertyGroup>
+        <UserSecretsId>87b9ba94-26bb-497a-8b63-56194da79c49</UserSecretsId>
+        <RootNamespace>JetBrains.FeaturedImageGenerator</RootNamespace>
+    </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="SixLabors.Fonts" Version="1.0.0-beta15" />
@@ -19,6 +20,60 @@
         <EmbeddedResource Include="Images\*.jpg" />
         <None Remove="Fonts\*.ttf" />
         <EmbeddedResource Include="Fonts\*.ttf" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\css" />
+      <Folder Include="wwwroot\img" />
+      <Folder Include="wwwroot\js" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\css\fontawesome\webfonts\fa-brands-400.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\fontawesome\webfonts\fa-brands-400.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\fontawesome\webfonts\fa-brands-400.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\fontawesome\webfonts\fa-brands-400.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\fontawesome\webfonts\fa-brands-400.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\fontawesome\webfonts\fa-regular-400.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\fontawesome\webfonts\fa-regular-400.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\fontawesome\webfonts\fa-regular-400.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\fontawesome\webfonts\fa-regular-400.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\fontawesome\webfonts\fa-regular-400.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\fontawesome\webfonts\fa-solid-900.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\fontawesome\webfonts\fa-solid-900.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\fontawesome\webfonts\fa-solid-900.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\fontawesome\webfonts\fa-solid-900.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\fontawesome\webfonts\fa-solid-900.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\webfonts\fa-brands-400.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\webfonts\fa-brands-400.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\webfonts\fa-brands-400.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\webfonts\fa-brands-400.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\webfonts\fa-brands-400.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\webfonts\fa-regular-400.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\webfonts\fa-regular-400.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\webfonts\fa-regular-400.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\webfonts\fa-regular-400.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\webfonts\fa-regular-400.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\webfonts\fa-solid-900.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\webfonts\fa-solid-900.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\webfonts\fa-solid-900.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\webfonts\fa-solid-900.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\webfonts\fa-solid-900.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\webfonts\fa-brands-400.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\webfonts\fa-brands-400.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\webfonts\fa-brands-400.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\webfonts\fa-brands-400.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\webfonts\fa-brands-400.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\webfonts\fa-regular-400.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\webfonts\fa-regular-400.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\webfonts\fa-regular-400.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\webfonts\fa-regular-400.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\webfonts\fa-regular-400.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\webfonts\fa-solid-900.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\webfonts\fa-solid-900.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\webfonts\fa-solid-900.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\webfonts\fa-solid-900.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\webfonts\fa-solid-900.woff2" />
     </ItemGroup>
 
 </Project>
