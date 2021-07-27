@@ -1,33 +1,23 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace JetBrains.FeaturedImageGenerator.Models
 {
     public static class Products
     {
-        public static readonly List<string> All = new()
-        {
-            BigDataTools, CodeWithMe, CLion, DotMemory, GoLand,
-            IntelliJ, Kotlin, PyCharm, ReSharper,
-            ResharperCPlusPlus, Rider, RubyMine,
-            TeamCity, WebStorm
-        };
+        // read images from folder as products
+        private static readonly Lazy<List<string>> Names = new(() => {
+            return typeof(Products).Assembly
+                .GetManifestResourceNames()
+                .Where(p => p.EndsWith(".jpg"))
+                .Select(Path.GetFileNameWithoutExtension)
+                .Select(n => n.Substring(n.LastIndexOf('.') + 1))
+                .ToList();
+        });
 
-        public const string BigDataTools = "Big Data Tools";
-        public const string CodeWithMe = "Code With Me";
-        public const string CLion = nameof(CLion);
-        public const string DotMemory = nameof(DotMemory);
-        public const string GoLand = nameof(GoLand);
-        public const string IntelliJ = nameof(IntelliJ);
-        public const string Kotlin = nameof(Kotlin);
-        public const string PyCharm = nameof(PyCharm);
-        public const string ReSharper = nameof(ReSharper);
-        public const string ResharperCPlusPlus = "ReSharper C++";
-        public const string Rider = nameof(Rider);
-        public const string RubyMine = nameof(RubyMine);
-        public const string TeamCity = nameof(TeamCity);
-        public const string WebStorm = nameof(WebStorm);
+        public static readonly List<string> All = Names.Value;
 
         public static bool Contains(string productName)
         {
