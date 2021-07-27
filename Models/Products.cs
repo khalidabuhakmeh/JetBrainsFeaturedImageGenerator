@@ -15,7 +15,7 @@ namespace JetBrains.FeaturedImageGenerator.Models
         };
 
         public const string BigDataTools = "Big Data Tools";
-        public const string CodeWithMe = nameof(CodeWithMe);
+        public const string CodeWithMe = "Code With Me";
         public const string CLion = nameof(CLion);
         public const string DotMemory = nameof(DotMemory);
         public const string GoLand = nameof(GoLand);
@@ -23,7 +23,7 @@ namespace JetBrains.FeaturedImageGenerator.Models
         public const string Kotlin = nameof(Kotlin);
         public const string PyCharm = nameof(PyCharm);
         public const string ReSharper = nameof(ReSharper);
-        public const string ResharperCPlusPlus = "ReSharperC++";
+        public const string ResharperCPlusPlus = "ReSharper C++";
         public const string Rider = nameof(Rider);
         public const string RubyMine = nameof(RubyMine);
         public const string TeamCity = nameof(TeamCity);
