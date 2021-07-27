@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace JetBrainsFeaturedImageGenerator.Models
+namespace JetBrains.FeaturedImageGenerator.Models
 {
     public static class Products
     {
@@ -25,5 +27,10 @@ namespace JetBrainsFeaturedImageGenerator.Models
         public const string RubyMine = nameof(RubyMine);
         public const string TeamCity = nameof(TeamCity);
         public const string WebStorm = nameof(WebStorm);
+
+        public static bool Contains(string productName)
+        {
+            return All.Contains(productName, StringComparer.OrdinalIgnoreCase);
+        }
     }
 }

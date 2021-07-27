@@ -20,7 +20,7 @@ namespace JetBrains.FeaturedImageGenerator.Pages
         public string Search { get; set; }
 
         public List<SelectListItem> Products =
-            JetBrainsFeaturedImageGenerator.Models.Products.All
+            Models.Products.All
                 .Select(p => new SelectListItem(p, p))
                 .ToList();
 
@@ -28,15 +28,8 @@ namespace JetBrains.FeaturedImageGenerator.Pages
 
         public async Task<IActionResult> OnPost([FromServices]HttpClient unsplash)
         {
-            Image sidebarImage = null;
-
-            // try to find a random side image
-            if (!string.IsNullOrWhiteSpace(Search))
-            {
-                sidebarImage = await unsplash.GetSidebarImage(Search);
-            }
-
-            Image = await Images.Render(Product, Text, sidebarImage);
+            var (_, sidebar) = await unsplash.TryGetSidebarImage(Search);
+            Image = await Images.Render(Product, Text, sidebar);
 
             return Partial("_Image", this);
         }

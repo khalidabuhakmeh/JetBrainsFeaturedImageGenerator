@@ -1,12 +1,14 @@
 @using SixLabors.ImageSharp
 @using SixLabors.ImageSharp.Formats.Jpeg
 @model JetBrains.FeaturedImageGenerator.Pages.Index
+@{
+    var data = @Model.Image.ToBase64String(JpegFormat.Instance);
+}
 
 <figure id="featureCard">
     <div class="image block">
-    <a id="featureCardDownload" download="@(Model.Product)_feature_card.jpg" href="@Model.Image.ToBase64String(JpegFormat.Instance)">
-        <img src="@Model.Image.ToBase64String(JpegFormat.Instance)"
-             alt="@Model.Product with @Model.Search" download>
+    <a id="featureCardDownload" download="@(Model.Product.ToLowerInvariant())_feature_card.jpg" href="@data">
+        <img src="@data" alt="@Model.Product with @Model.Search" download>
     </a>
     </div>
     <div class="block columns is-centered">

@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
+using JetBrains.FeaturedImageGenerator.Models;
 using SixLabors.Fonts;
 
 namespace JetBrainsFeaturedImageGenerator.Models

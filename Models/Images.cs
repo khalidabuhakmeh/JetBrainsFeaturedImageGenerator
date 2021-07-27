@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
@@ -16,6 +17,14 @@ namespace JetBrains.FeaturedImageGenerator.Models
     {
         private static readonly Assembly Assembly
             = typeof(Images).Assembly;
+
+        public static async Task<(bool, Image)> TryGetSidebarImage(this HttpClient client, string search)
+        {
+            if (string.IsNullOrWhiteSpace(search))
+                return (false, null);
+
+            return (true, await GetSidebarImage(client, search));
+        }
 
         public static async Task<Image> GetSidebarImage(this HttpClient httpClient, string query)
         {
@@ -81,7 +90,7 @@ namespace JetBrains.FeaturedImageGenerator.Models
         {
             var name = Assembly
                 .GetManifestResourceNames()
-                .FirstOrDefault(n => n.EndsWith($"{productName}.jpg"));
+                .FirstOrDefault(n => n.EndsWith($"{productName}.jpg", StringComparison.OrdinalIgnoreCase));
 
             if (name is null)
                 throw new MissingManifestResourceException($"No image for {productName}");

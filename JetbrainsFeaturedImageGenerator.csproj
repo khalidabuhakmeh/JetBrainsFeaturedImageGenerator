@@ -5,6 +5,7 @@
         <LangVersion>preview</LangVersion>
         <UserSecretsId>87b9ba94-26bb-497a-8b63-56194da79c49</UserSecretsId>
         <RootNamespace>JetBrains.FeaturedImageGenerator</RootNamespace>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>

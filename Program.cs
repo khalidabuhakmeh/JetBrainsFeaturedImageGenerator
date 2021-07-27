@@ -1,11 +1,9 @@
 using System.Net.Http;
 using JetBrains.FeaturedImageGenerator.Models;
-using JetBrainsFeaturedImageGenerator.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,17 +29,14 @@ app.MapGet("/api", async (
         /*services*/ HttpClient unsplash, HttpContext ctx
     ) =>
 {
-    product ??= Products.Rider;
-    text ??= $"Cool New\nBlog Post\nFor {product}";
-    Image sidebarImage = null;
-
-    // try to find a random side image
-    if (!string.IsNullOrWhiteSpace(search))
+    if (!Products.Contains(product) || string.IsNullOrWhiteSpace(text))
     {
-        sidebarImage = await unsplash.GetSidebarImage(search);
+        ctx.Response.StatusCode = StatusCodes.Status400BadRequest;
+        return;
     }
 
-    var image = await Images.Render(product, text, sidebarImage);
+    var (_, sidebar) = await unsplash.TryGetSidebarImage(search);
+    var image = await Images.Render(product, text, sidebar);
 
     ctx.Response.ContentType = "image/jpeg";
     await image.SaveAsync(ctx.Response.Body, new JpegEncoder());
