@@ -30,16 +30,13 @@ builder.Services.AddAuthentication(options =>
 .AddSpace(options =>
 {
     builder.Configuration.Bind(options);
-    options.Events.OnRedirectToAuthorizationEndpoint += context =>
+    options.Events.OnRedirectToAuthorizationEndpoint = context =>
     {
         // fix issue if http is generated for redirect_uri
-        context.RedirectUri =
-            context
-            .RedirectUri
-            .Replace(
-                "redirect_uri=http",
-                "redirect_uri=https"
-            );
+        if (builder.Configuration["RedirectUri"] is { } redirectUri)
+        {
+            context.RedirectUri = redirectUri;
+        }
 
         return Task.CompletedTask;
     };
@@ -52,7 +49,6 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseStaticFiles();
