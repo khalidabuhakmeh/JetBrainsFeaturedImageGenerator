@@ -4,10 +4,8 @@ using System.Threading.Tasks;
 using JetBrains.FeaturedImageGenerator.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,17 +29,17 @@ builder.Services.AddAuthentication(options =>
 })
 .AddSpace(options =>
 {
-    /* Bind uses FileWatcher, so let's manually set these */
-    options.ServerUrl = new Uri(builder.Configuration["ServerUrl"]);
-    options.ClientId = builder.Configuration["ClientId"];
-    options.ClientSecret = builder.Configuration["ClientSecret"];
+    builder.Configuration.Bind(options);
     options.Events.OnRedirectToAuthorizationEndpoint += context =>
     {
         // fix issue if http is generated for redirect_uri
         context.RedirectUri =
             context
             .RedirectUri
-            .Replace("redirect_uri=http", "redirect_uri=https");
+            .Replace(
+                "redirect_uri=http",
+                "redirect_uri=https"
+            );
 
         return Task.CompletedTask;
     };
