@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http;
 using JetBrains.FeaturedImageGenerator.Models;
 using Microsoft.AspNetCore.Authentication;
@@ -25,7 +26,13 @@ builder.Services.AddAuthentication(options =>
     // set the path for the sign out
     options.LogoutPath = "/signout";
 })
-.AddSpace(options => builder.Configuration.Bind(options));
+.AddSpace(options =>
+{
+    /* Bind uses FileWatcher, so let's manually set these */
+    options.ServerUrl = new Uri(builder.Configuration["ServerUrl"]);
+    options.ClientId = builder.Configuration["ClientId"];
+    options.ClientSecret = builder.Configuration["ClientSecret"];
+});
 
 var app = builder.Build();
 
