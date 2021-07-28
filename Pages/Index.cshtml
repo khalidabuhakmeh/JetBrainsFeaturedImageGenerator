@@ -54,6 +54,9 @@
                                 <li class="is-active">
                                     <a asp-page="Index">Home</a>
                                 </li>
+                                <li>
+                                    <a href="/signout">Sign Out</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -65,6 +68,7 @@
         <div class="container">
             <div class="block">
                 <h1 class="title is-1">Featured Image Generator</h1>
+                <p>Hello, <strong>@User.Identity.Name!</strong></p>
                 <p>Generate feature cards for JetBrains Blog Posts. Use the <strong>Image Search</strong> to search <a href="https://unsplash.com">Unsplash</a> to find optional side bar images. </p>
             </div>
             <div class="columns is-vcentered">

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using JetBrains.FeaturedImageGenerator.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ using SixLabors.ImageSharp;
 
 namespace JetBrains.FeaturedImageGenerator.Pages
 {
+    [Authorize]
     public class Index : PageModel, IDisposable
     {
         [BindProperty]

@@ -1,7 +1,10 @@
 using System.Net.Http;
 using JetBrains.FeaturedImageGenerator.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SixLabors.ImageSharp.Formats.Jpeg;
@@ -11,6 +14,18 @@ var builder = WebApplication.CreateBuilder(args);
 // unsplash API for sidebar images
 builder.Services.AddHttpClient();
 builder.Services.AddRazorPages();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = "Space";
+})
+.AddCookie(options =>
+{
+    // set the path for the sign out
+    options.LogoutPath = "/signout";
+})
+.AddSpace(options => builder.Configuration.Bind(options));
 
 var app = builder.Build();
 
@@ -19,15 +34,17 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseStaticFiles();
 app.MapRazorPages();
 
 // this compiles, don't believe
 // what Rider is telling you
 app.MapGet("/api", async (
-        /*params*/   string product, string text, string search,
-        /*services*/ HttpClient unsplash, HttpContext ctx
-    ) =>
+    /*params*/ string product, string text, string search,
+    /*services*/ HttpClient unsplash, HttpContext ctx
+) =>
 {
     if (!Products.Contains(product) || string.IsNullOrWhiteSpace(text))
     {
@@ -42,7 +59,16 @@ app.MapGet("/api", async (
 
     ctx.Response.ContentType = "image/jpeg";
     await image.SaveAsync(ctx.Response.Body, new JpegEncoder());
-});
+}).RequireAuthorization();
 
+app.MapGet("/signout", async ctx =>
+{
+    await ctx.SignOutAsync(
+        CookieAuthenticationDefaults.AuthenticationScheme,
+        new AuthenticationProperties
+        {
+            RedirectUri = "/bye"
+        });
+});
 
 app.Run();
