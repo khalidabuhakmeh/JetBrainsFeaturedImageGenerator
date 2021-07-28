@@ -1,11 +1,13 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using JetBrains.FeaturedImageGenerator.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -35,7 +37,7 @@ builder.Services.AddAuthentication(options =>
         // fix issue if http is generated for redirect_uri
         if (builder.Configuration["RedirectUri"] is { } redirectUri)
         {
-            context.RedirectUri = redirectUri;
+            context.RedirectUri = HttpUtility.UrlEncode(redirectUri);
         }
 
         return Task.CompletedTask;
