@@ -54,7 +54,7 @@ app.MapRazorPages();
 // this compiles, don't believe
 // what Rider is telling you
 app.MapGet("/api", async (
-    /*params*/ string product, string text, string search,
+    /*params*/ string product, string text, string font, string search,
     /*services*/ HttpClient unsplash, HttpContext ctx
 ) =>
 {
@@ -67,7 +67,7 @@ app.MapGet("/api", async (
     var (_, sb) = await unsplash.TryGetSidebarImage(search);
 
     using var sidebar = sb;
-    using var image = await Images.Render(product, text, sidebar);
+    using var image = await Images.Render(product, text, font, sidebar);
 
     ctx.Response.ContentType = "image/jpeg";
     await image.SaveAsync(ctx.Response.Body, new JpegEncoder());

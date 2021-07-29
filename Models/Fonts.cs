@@ -1,39 +1,58 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Resources;
-using JetBrains.FeaturedImageGenerator.Models;
 using SixLabors.Fonts;
 
-namespace JetBrainsFeaturedImageGenerator.Models
+namespace JetBrains.FeaturedImageGenerator.Models
 {
     public static class Fonts
     {
         private static readonly Assembly Assembly
             = typeof(Products).Assembly;
 
-        public static Font GetGothamFont(int size = 125)
+        public const string GothamBold = "Gotham Bold";
+        public const string ArialUnicodeMs = "Arial Unicode MS";
+
+        public static IReadOnlyList<(string,string)> All { get; } = new List<(string,string)>() {
+            ("Gotham", GothamBold),
+            ("Arial Unicode", ArialUnicodeMs)
+        }.AsReadOnly();
+
+        private static Lazy<FontCollection> FontCollection = new(() =>
         {
             var collection = new FontCollection();
-            var name = Assembly.GetManifestResourceNames()
-                .FirstOrDefault(n => n.EndsWith($"Gotham-Bold.ttf"));
+            var fonts = Assembly.GetManifestResourceNames()
+                .Where(n => n.EndsWith($".ttf"))
+                .ToList();
 
-            if (name is null)
-                throw new MissingManifestResourceException($"Gotham Bold font not found in resources");
+            foreach (var font in fonts)
+            {
+                using var stream = Assembly.GetManifestResourceStream(font);
+                if (stream == null) continue;
+                collection.Install(stream);
+            }
 
-            using var stream = Assembly.GetManifestResourceStream(name);
+            return collection;
+        });
 
-            if (stream is null)
-                throw new MissingManifestResourceException($"Gotham Bold font not found in resources");
+        /// <summary>
+        /// Get a Font given the name and size
+        /// </summary>
+        /// <param name="name">Default font is Gotham Bold</param>
+        /// <param name="size">Default size is 125px</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static Font GetFontOrDefault(string name = GothamBold, int size = 125)
+        {
+            name ??= GothamBold;
 
-            collection.Install(stream);
-
-            if (!collection.TryFind("Gotham Bold", out var family))
-                throw new Exception("Was unable to create Gotham font");
+            var fontCollection = FontCollection.Value;
+            if (!fontCollection.TryFind(name, out var family))
+                throw new ArgumentException($"Was unable to create {name} font", nameof(name));
 
             var font = family.CreateFont(size, FontStyle.Bold);
             return font;
-
         }
     }
 }

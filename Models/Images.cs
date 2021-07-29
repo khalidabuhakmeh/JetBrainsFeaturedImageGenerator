@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Reflection;
 using System.Resources;
 using System.Threading.Tasks;
-using JetBrainsFeaturedImageGenerator.Models;
 using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
@@ -37,6 +36,7 @@ namespace JetBrains.FeaturedImageGenerator.Models
         public static async Task<Image> Render(
             string productName,
             string titleText,
+            string fontName = null,
             Image sidebar = null)
         {
             var image = await GetProductImage(productName);
@@ -59,7 +59,8 @@ namespace JetBrains.FeaturedImageGenerator.Models
                 ));
             }
 
-            var font = Fonts.GetGothamFont(size: 125);
+            var font = Fonts.GetFontOrDefault(name: fontName, size: 125);
+
             image.Mutate(ctx => ctx
                 .DrawText(
                     new()

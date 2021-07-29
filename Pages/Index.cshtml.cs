@@ -21,10 +21,17 @@ namespace JetBrains.FeaturedImageGenerator.Pages
         public string Text { get; set; }
         [BindProperty]
         public string Search { get; set; }
+        [BindProperty]
+        public string FontName { get; set; }
 
         public List<SelectListItem> Products =
             Models.Products.All
                 .Select(p => new SelectListItem(p, p))
+                .ToList();
+
+        public List<SelectListItem> Fonts =
+            Models.Fonts.All
+                .Select(f => new SelectListItem(f.Item1, f.Item2))
                 .ToList();
 
         public Image Image { get; set; }
@@ -33,7 +40,7 @@ namespace JetBrains.FeaturedImageGenerator.Pages
         {
             var (_, sb) = await unsplash.TryGetSidebarImage(Search);
             using var sidebar = sb;
-            Image = await Images.Render(Product, Text, sidebar);
+            Image = await Images.Render(Product, Text, FontName, sidebar);
             return Partial("_Image", this);
         }
 

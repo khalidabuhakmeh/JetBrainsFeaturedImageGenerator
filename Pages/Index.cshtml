@@ -71,6 +71,11 @@
                 <p>Hello, <strong>@User.Identity.Name!</strong></p>
                 <p>Generate feature cards for JetBrains Blog Posts. Use the <strong>Image Search</strong> to search <a href="https://unsplash.com">Unsplash</a> to find optional side bar images. </p>
             </div>
+            <div class="block">
+                <div class="notification is-link">
+                  Non-Roman alphabet languages (Chinese, Japanese, Hebrew, etc.) should use <strong>Arial Unicode</strong> to render the characters properly.
+                </div>
+            </div>
             <div class="columns is-vcentered">
                 <div class="column is-8">
                     <figure id="featureCard" class="image is-16by9">
@@ -83,6 +88,13 @@
                             <label class="label">Product *</label>
                             <div class="select is-medium">
                                 <select asp-for="Product" asp-items="Model.Products">
+                                </select>
+                            </div>
+                        </div>
+                       <div class="field">
+                            <label class="label">Font *</label>
+                            <div class="select is-medium">
+                                <select asp-for="FontName" asp-items="Model.Fonts">
                                 </select>
                             </div>
                         </div>
