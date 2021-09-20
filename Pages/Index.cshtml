@@ -55,7 +55,10 @@
                                     <a asp-page="Index">Home</a>
                                 </li>
                                 <li>
-                                    <a href="/signout">Sign Out</a>
+                                    <a href="/signout">
+                                        <vc:avatar width="20" height="20"/> 
+                                        <span class="pl-2">Sign Out</span>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -68,7 +71,7 @@
         <div class="container">
             <div class="block">
                 <h1 class="title is-1">Featured Image Generator</h1>
-                <p>Hello, <strong>@User.Identity.Name!</strong></p>
+                <p> Hello, <strong>@User.Identity.Name!</strong></p>
                 <p>Generate feature cards for JetBrains Blog Posts. Use the <strong>Image Search</strong> to search <a href="https://unsplash.com">Unsplash</a> to find optional side bar images. </p>
             </div>
             <div class="block">
@@ -91,7 +94,7 @@
                                 </select>
                             </div>
                         </div>
-                       <div class="field">
+                        <div class="field">
                             <label class="label">Font *</label>
                             <div class="select is-medium">
                                 <select asp-for="FontName" asp-items="Model.Fonts">

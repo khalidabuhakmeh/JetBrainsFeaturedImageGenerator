@@ -1,5 +1,7 @@
 using System.Net.Http;
 using JetBrains.FeaturedImageGenerator.Models;
+using JetBrains.Space.AspNetCore.Authentication;
+using JetBrains.Space.AspNetCore.Authentication.Experimental.TokenManagement;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -26,16 +28,24 @@ builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = "Space";
+    options.DefaultChallengeScheme = SpaceDefaults.AuthenticationScheme;
 })
-.AddCookie(options =>
-{
-    // set the path for the sign out
-    options.LogoutPath = "/signout";
-})
+.AddCookie(options => { options.LogoutPath = "/signout"; })
 .AddSpace(options =>
 {
     builder.Configuration.Bind(options);
+})
+.AddSpaceTokenManagement();
+
+// Space client API
+builder.Services.AddSpaceClientApi();
+            
+// CORS
+builder.Services.AddCors(setup =>
+{
+    // ...for Space attachment proxy
+    setup.AddPolicy("SpaceAttachmentProxy", _ => _
+        .WithMethods("GET"));
 });
 
 var app = builder.Build();
@@ -48,6 +58,7 @@ if (app.Environment.IsDevelopment())
 app.UseForwardedHeaders();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseCors();
 app.UseStaticFiles();
 app.MapRazorPages();
 
@@ -82,5 +93,8 @@ app.MapGet("/signout", async ctx =>
             RedirectUri = "/bye"
         });
 });
+
+app.MapSpaceAttachmentProxy("/space-attachments")
+   .RequireCors("SpaceAttachmentProxy");
 
 app.Run();

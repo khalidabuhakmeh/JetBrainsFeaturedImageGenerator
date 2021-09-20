@@ -9,7 +9,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="JetBrains.Space.AspNetCore.Authentication" Version="1.0.0-beta.75386.9046" />
+        <PackageReference Include="JetBrains.Space.AspNetCore" Version="1.0.0-beta.80199.9057" />
+        <PackageReference Include="JetBrains.Space.AspNetCore.Authentication" Version="1.0.0-beta.80199.9057" />
         <PackageReference Include="SixLabors.Fonts" Version="1.0.0-beta15" />
         <PackageReference Include="SixLabors.ImageSharp" Version="1.0.3" />
         <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta13" />

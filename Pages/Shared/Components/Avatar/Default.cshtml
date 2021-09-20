@@ -1,0 +1,5 @@
+@model JetBrains.FeaturedImageGenerator.Pages.Shared.Components.Avatar.Avatar.AvatarModel
+@{
+    System.Diagnostics.Debug.Assert(Model != null, nameof(Model) + " != null");
+}
+<img src="/space-attachments/@Model.AvatarId" alt="@Model.Name" width="@Model.Width" height="@Model.Height" />
